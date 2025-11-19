@@ -13,3 +13,4 @@ Thumbs.db
 # VSCode
 .vscode/
 node_modules/ 
+backend/model/content_model.pkl 
