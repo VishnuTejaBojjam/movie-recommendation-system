@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommender System</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Movie Recommender System</h1>
+    <p class="subtitle">Type a movie name and get personalized recommendations</p>
+
+    <div class="search-box">
+        <input id="movieInput" list="moviesList" placeholder="Search for a movie...">
+        <datalist id="moviesList"></datalist>
+        <button id="findBtn">Show Recommendations</button>
+    </div>
+
+    <div id="results" class="movie-grid"></div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

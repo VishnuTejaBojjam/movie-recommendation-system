@@ -1,0 +1,13 @@
+{
+  "name": "movie-recommendation-node",
+  "version": "1.0.0",
+  "description": "Node server to serve frontend and proxy requests to Flask backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6"
+  }
+}

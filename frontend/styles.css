@@ -1,0 +1,138 @@
+/* ------------------------------
+   GLOBAL
+------------------------------ */
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    color: white;
+
+    background: url("https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=1500&q=80")
+        no-repeat center center fixed;
+    background-size: cover;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 20, 0.80);
+    backdrop-filter: blur(7px);
+    z-index: -1;
+}
+
+/* ------------------------------
+   CONTAINER
+------------------------------ */
+.container {
+    width: 90%;
+    max-width: 1050px;
+    margin: 50px auto;
+    text-align: center;
+    padding: 30px;
+
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+}
+
+/* ------------------------------
+   HEADINGS
+------------------------------ */
+h1 {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #cccccc;
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+/* ------------------------------
+   SEARCH BAR
+------------------------------ */
+.search-box {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.search-box input {
+    width: 360px;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #ff7070;
+}
+
+.search-box button {
+    padding: 14px 18px;
+    background: linear-gradient(to right, #ff5c5c, #ff8b8b);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 90, 90, 0.4);
+}
+
+.search-box button:hover {
+    transform: scale(1.05);
+}
+
+/* ------------------------------
+   MOVIE GRID
+------------------------------ */
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 28px;
+    margin-top: 35px;
+}
+
+/* ------------------------------
+   MOVIE CARDS
+------------------------------ */
+.movie-card {
+    background: rgba(255,255,255,0.08);
+    padding: 18px;
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: 0.28s;
+}
+
+.movie-card:hover {
+    transform: translateY(-8px) scale(1.04);
+    background: rgba(255,255,255,0.12);
+}
+
+.poster {
+    width: 100%;
+    height: 290px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.movie-card h4 {
+    margin-top: 12px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #f8f8f8;
+}
+
+.movie-card p {
+    margin-top: 6px;
+    color: #bbbbbb;
+}
