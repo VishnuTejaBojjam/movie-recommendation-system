@@ -1,5 +1,5 @@
-// Backend API - use relative path when running from Node server on port 3000
-const API_BASE = window.location.origin.includes('3000') ? '' : 'http://127.0.0.1:5000';
+// Backend API - ALWAYS use Render backend online
+const API_BASE = 'https://movie-backend-844x.onrender.com';
 
 // Your TMDB API Key
 const TMDB_KEY = "a30becae90c7150eaf2276b2846ad2b0";
