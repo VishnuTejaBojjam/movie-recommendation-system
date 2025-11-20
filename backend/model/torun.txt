@@ -1,3 +1,0 @@
-cd C:\Users\vishn\OneDrive\Desktop\movie-recomd-app\backend
-venv\Scripts\activate
-python app.py
