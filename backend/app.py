@@ -12,26 +12,59 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_DIR = os.path.join(BASE_DIR, "model")
 MODEL_PATH = os.path.join(MODEL_DIR, "content_model.pkl")
 
-# Direct Google Drive download link
-MODEL_URL = "https://drive.google.com/uc?export=download&id=1PiQZV4Ua6_1Jm71xbd3iWzqi8jzupASP"
+# Google Drive File ID (NOT the full link)
+FILE_ID = "1PiQZV4Ua6_1Jm71xbd3iWzqi8jzupASP"
 
-# -----------------------
-# DOWNLOAD MODEL IF MISSING
-# -----------------------
+
+# ----------------------------------------------------
+#  DOWNLOAD LARGE FILE FROM GOOGLE DRIVE (Correct way)
+# ----------------------------------------------------
+def download_file_from_google_drive(id, destination):
+    URL = "https://drive.google.com/uc?export=download"
+
+    session = requests.Session()
+    response = session.get(URL, params={"id": id}, stream=True)
+    token = get_confirm_token(response)
+
+    if token:
+        params = {"id": id, "confirm": token}
+        response = session.get(URL, params=params, stream=True)
+
+    save_response_content(response, destination)
+
+
+def get_confirm_token(response):
+    for key, value in response.cookies.items():
+        if key.startswith("download_warning"):
+            return value
+    return None
+
+
+def save_response_content(response, destination):
+    CHUNK_SIZE = 32768
+
+    with open(destination, "wb") as f:
+        for chunk in response.iter_content(CHUNK_SIZE):
+            if chunk:
+                f.write(chunk)
+
+
+# ----------------------------------------------------
+#  DOWNLOAD MODEL IF NOT EXISTS
+# ----------------------------------------------------
 if not os.path.exists(MODEL_PATH):
-    print("Model NOT found! Downloading from Google Drive...")
+    print("⚠ Model not found! Downloading from Google Drive...")
     os.makedirs(MODEL_DIR, exist_ok=True)
 
-    response = requests.get(MODEL_URL)
-    with open(MODEL_PATH, "wb") as f:
-        f.write(response.content)
+    download_file_from_google_drive(FILE_ID, MODEL_PATH)
 
-    print("Model downloaded successfully!")
+    print("✅ Model downloaded successfully!")
 
-# -----------------------
-# LOAD MODEL
-# -----------------------
-print("Loading model...")
+
+# ----------------------------------------------------
+#  LOAD MODEL
+# ----------------------------------------------------
+print("📦 Loading model...")
 with open(MODEL_PATH, "rb") as f:
     data = pickle.load(f)
 
@@ -41,13 +74,19 @@ similarity = data["similarity"]
 movies = movies.reset_index(drop=True)
 titles = movies["title"].values
 
+
+# ----------------------------------------------------
+#  ROUTES
+# ----------------------------------------------------
 @app.route("/")
 def home():
-    return "Backend is running!"
+    return "Backend is running successfully!"
+
 
 @app.route("/movies")
 def get_movies():
     return jsonify(list(titles))
+
 
 @app.route("/recommend")
 def recommend():
@@ -56,7 +95,7 @@ def recommend():
     matches = movies[movies["title"].str.lower() == movie]
 
     if matches.empty:
-        return jsonify({"error": "Movie not found", "recommendations": []}), 404
+        return jsonify({"error": "Movie not found"}), 404
 
     index = matches.index[0]
     distances = similarity[index]
@@ -74,5 +113,9 @@ def recommend():
 
     return jsonify(recommendations)
 
+
+# ----------------------------------------------------
+#  START APP
+# ----------------------------------------------------
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)
