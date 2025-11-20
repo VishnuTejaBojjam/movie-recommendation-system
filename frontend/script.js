@@ -2,6 +2,7 @@
 const API_BASE = "https://movie-backend-844x.onrender.com";
 
 
+
 // Your TMDB API Key
 const TMDB_KEY = "a30becae90c7150eaf2276b2846ad2b0";
 
